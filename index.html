@@ -1,30 +1,104 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular - Astronomía</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular Astronomía</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Malla Curricular de Astronomía</h1>
-  <div class="grid">
-    <div class="nivel" id="nivel1">
-      <h2>Semestre 1</h2>
-      <div class="materia" id="intro-mat" onclick="toggleCursada('intro-mat')">Introducción a las Matemáticas</div>
-      <div class="materia" id="comp" onclick="toggleCursada('comp')">Fund. en Computación</div>
-      <div class="materia" id="mat-bas" onclick="toggleCursada('mat-bas')">Matemáticas Básicas</div>
+  <h1>Malla Curricular - Astronomía</h1>
+  <div class="container">
+    <!-- Repetimos para cada nivel -->
+
+    <div class="nivel">
+      <h2>Nivel 1</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 1.1</li>
+        <li onclick="toggle(this)">Materia 1.2</li>
+        <li onclick="toggle(this)">Materia 1.3</li>
+      </ul>
     </div>
-    <div class="nivel" id="nivel2">
-      <h2>Semestre 2</h2>
-      <div class="materia" id="calculo1" data-prereq="mat-bas" onclick="toggleCursada('calculo1')">Cálculo I</div>
-      <div class="materia" id="algebra" data-prereq="intro-mat,mat-bas" onclick="toggleCursada('algebra')">Álgebra Lineal</div>
+
+    <div class="nivel">
+      <h2>Nivel 2</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 2.1</li>
+        <li onclick="toggle(this)">Materia 2.2</li>
+        <li onclick="toggle(this)">Materia 2.3</li>
+      </ul>
     </div>
-    <div class="nivel" id="nivel3">
-      <h2>Semestre 3</h2>
-      <div class="materia" id="calc2" data-prereq="calculo1" onclick="toggleCursada('calc2')">Cálculo II</div>
-      <div class="materia" id="met-comp" data-prereq="calculo1,algebra" onclick="toggleCursada('met-comp')">Métodos Computacionales</div>
+
+    <div class="nivel">
+      <h2>Nivel 3</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 3.1</li>
+        <li onclick="toggle(this)">Materia 3.2</li>
+        <li onclick="toggle(this)">Materia 3.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 4</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 4.1</li>
+        <li onclick="toggle(this)">Materia 4.2</li>
+        <li onclick="toggle(this)">Materia 4.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 5</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 5.1</li>
+        <li onclick="toggle(this)">Materia 5.2</li>
+        <li onclick="toggle(this)">Materia 5.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 6</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 6.1</li>
+        <li onclick="toggle(this)">Materia 6.2</li>
+        <li onclick="toggle(this)">Materia 6.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 7</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 7.1</li>
+        <li onclick="toggle(this)">Materia 7.2</li>
+        <li onclick="toggle(this)">Materia 7.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 8</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 8.1</li>
+        <li onclick="toggle(this)">Materia 8.2</li>
+        <li onclick="toggle(this)">Materia 8.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 9</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 9.1</li>
+        <li onclick="toggle(this)">Materia 9.2</li>
+        <li onclick="toggle(this)">Materia 9.3</li>
+      </ul>
+    </div>
+
+    <div class="nivel">
+      <h2>Nivel 10</h2>
+      <ul>
+        <li onclick="toggle(this)">Materia 10.1</li>
+        <li onclick="toggle(this)">Materia 10.2</li>
+        <li onclick="toggle(this)">Materia 10.3</li>
+      </ul>
     </div>
   </div>
   <script src="script.js"></script>
