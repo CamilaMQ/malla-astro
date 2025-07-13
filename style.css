@@ -1,0 +1,60 @@
+
+body {
+  background: url('https://images.unsplash.com/photo-1587614295999-6f3c1f67b66a?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  color: white;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.grid {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.nivel {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 10px;
+  min-width: 220px;
+  max-width: 220px;
+  flex-shrink: 0;
+}
+
+.nivel h2 {
+  text-align: center;
+  border-bottom: 1px solid #00ffff;
+}
+
+.materia {
+  background: #1e1e2f;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-left: 5px solid transparent;
+}
+
+.materia:hover {
+  background: #2a2a40;
+}
+
+.cursada {
+  background: #004d40 !important;
+  border-left-color: #00e676;
+}
+
+.disponible {
+  background: #003c8f !important;
+  border-left-color: #29b6f6;
+}

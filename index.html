@@ -1,7 +1,32 @@
+
 <!DOCTYPE html>
-<html>
-  <head><title>Malla Astronomía</title></head>
-  <body>
-    <h1>Hola Camila 🌙</h1>
-  </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular - Astronomía</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Malla Curricular de Astronomía</h1>
+  <div class="grid">
+    <div class="nivel" id="nivel1">
+      <h2>Semestre 1</h2>
+      <div class="materia" id="intro-mat" onclick="toggleCursada('intro-mat')">Introducción a las Matemáticas</div>
+      <div class="materia" id="comp" onclick="toggleCursada('comp')">Fund. en Computación</div>
+      <div class="materia" id="mat-bas" onclick="toggleCursada('mat-bas')">Matemáticas Básicas</div>
+    </div>
+    <div class="nivel" id="nivel2">
+      <h2>Semestre 2</h2>
+      <div class="materia" id="calculo1" data-prereq="mat-bas" onclick="toggleCursada('calculo1')">Cálculo I</div>
+      <div class="materia" id="algebra" data-prereq="intro-mat,mat-bas" onclick="toggleCursada('algebra')">Álgebra Lineal</div>
+    </div>
+    <div class="nivel" id="nivel3">
+      <h2>Semestre 3</h2>
+      <div class="materia" id="calc2" data-prereq="calculo1" onclick="toggleCursada('calc2')">Cálculo II</div>
+      <div class="materia" id="met-comp" data-prereq="calculo1,algebra" onclick="toggleCursada('met-comp')">Métodos Computacionales</div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
