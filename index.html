@@ -12,65 +12,90 @@
       padding: 2rem;
       color: #333;
     }
+
     h1 {
       text-align: center;
       color: #c2185b;
+      margin-bottom: 1rem;
     }
+
     .container {
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
       gap: 1rem;
-      padding-top: 1rem;
+      padding-bottom: 2rem;
     }
+
     .nivel {
       background: #fde4ec;
       border-radius: 10px;
       padding: 1rem;
       width: 250px;
       flex-shrink: 0;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     .nivel h2 {
       text-align: center;
       color: #ad1457;
       margin-bottom: 1rem;
     }
-    .nivel ul {
+
+    ul {
       list-style: none;
       padding: 0;
     }
-    .nivel li {
+
+    li {
       background: #fff;
       margin-bottom: 0.5rem;
       padding: 0.6rem;
       border-radius: 5px;
       cursor: pointer;
-      border-left: 5px solid transparent;
       transition: 0.2s;
     }
-    .nivel li:hover {
+
+    li:hover {
       background: #f8bbd0;
     }
+
     .cursada {
       background: #f48fb1 !important;
       color: white;
-      border-left-color: #ad1457;
     }
+
     .bloqueada {
       background: #e0e0e0;
       border: 2px dotted #9e9e9e;
       color: #777;
       cursor: not-allowed;
     }
+
+    .reset-btn {
+      display: block;
+      margin: 0 auto 2rem auto;
+      padding: 0.5rem 1rem;
+      background-color: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background-color: #a5144a;
+    }
   </style>
 </head>
 <body>
   <h1>Malla Curricular - Astronomía</h1>
+  <button class="reset-btn" onclick="reiniciarMalla()">Reiniciar malla</button>
   <div class="container" id="malla"></div>
 
   <script>
     const materias = [
+      // Nivel 1
       { nombre: "Introducción a las matemáticas", nivel: 1 },
       { nombre: "Fundamentación en computación", nivel: 1 },
       { nombre: "Matemáticas básicas", nivel: 1 },
@@ -78,100 +103,128 @@
       { nombre: "Cátedra universitaria I", nivel: 1 },
       { nombre: "Fundamentación en astronomía", nivel: 1 },
 
+      // Nivel 2
       { nombre: "Física básica I", nivel: 2, prerequisitos: ["Introducción a las matemáticas"] },
       { nombre: "Física experimental I", nivel: 2, prerequisitos: ["Introducción a las matemáticas", "Fundamentación en astronomía"] },
       { nombre: "Cálculo I", nivel: 2, prerequisitos: ["Matemáticas básicas"] },
       { nombre: "Álgebra lineal", nivel: 2, prerequisitos: ["Introducción a las matemáticas", "Matemáticas básicas"] },
       { nombre: "Cátedra universitaria II", nivel: 2, prerequisitos: ["Cátedra universitaria I"] },
 
+      // Nivel 3
       { nombre: "Métodos computacionales", nivel: 3, prerequisitos: ["Cálculo I", "Fundamentación en computación", "Álgebra lineal"] },
       { nombre: "Física básica II", nivel: 3, prerequisitos: ["Física básica I", "Cálculo I"] },
-      { nombre: "Física experimental II", nivel: 3, prerequisitos: ["Física básica I", "Cálculo I", "Fundamentación en computación", "Física experimental I"] },
+      { nombre: "Física experimental II", nivel: 3, prerequisitos: ["Física básica I", "Cálculo I", "Física experimental I"] },
       { nombre: "Cálculo II", nivel: 3, prerequisitos: ["Cálculo I"] },
-      { nombre: "Astronomía práctica I", nivel: 3, prerequisitos: ["Física experimental I", "Fundamentación en computación"] },
+      { nombre: "Astronomía práctica I", nivel: 3, prerequisitos: ["Física experimental I"] },
       { nombre: "English 1", nivel: 3 },
 
+      // Nivel 4
       { nombre: "Cálculo avanzado", nivel: 4, prerequisitos: ["Cálculo II"] },
-      { nombre: "Física básica III", nivel: 4, prerequisitos: ["Física básica II", "Cálculo II"] },
-      { nombre: "Física experimental III", nivel: 4, prerequisitos: ["Física experimental II", "Astronomía práctica I"] },
-      { nombre: "Ecuaciones diferenciales ordinarias", nivel: 4, prerequisitos: ["Cálculo II"] },
+      { nombre: "Física básica III", nivel: 4, prerequisitos: ["Física básica II"] },
+      { nombre: "Física experimental III", nivel: 4, prerequisitos: ["Física experimental II"] },
+      { nombre: "Ecuaciones diferenciales ordinarias", nivel: 4, prerequisitos: ["Álgebra lineal", "Cálculo II"] },
       { nombre: "Astronomía de posición", nivel: 4, prerequisitos: ["Astronomía práctica I"] },
       { nombre: "English 2", nivel: 4, prerequisitos: ["English 1"] },
 
-      { nombre: "Mecánica celeste", nivel: 5, prerequisitos: ["Astronomía de posición"] },
-      { nombre: "Taller de habilidades científicas", nivel: 5 },
-      { nombre: "Cinemática galáctica", nivel: 5, prerequisitos: ["Física básica III"] },
+      // Nivel 5
+      { nombre: "Mecánica", nivel: 5, prerequisitos: ["Física básica II", "Cálculo II"] },
+      { nombre: "Laboratorio de mecánica", nivel: 5, prerequisitos: ["Física experimental II"] },
+      { nombre: "Astronomía estelar", nivel: 5, prerequisitos: ["Astronomía práctica I"] },
+      { nombre: "Bases de datos astronómicos", nivel: 5, prerequisitos: ["Métodos computacionales"] },
+      { nombre: "English 3", nivel: 5, prerequisitos: ["English 2"] },
 
-      { nombre: "Ondas y óptica", nivel: 6, prerequisitos: ["Física básica III"] },
-      { nombre: "Procesamiento de datos astronómicos", nivel: 6, prerequisitos: ["Métodos computacionales"] },
-      { nombre: "Astronomía práctica II", nivel: 6, prerequisitos: ["Astronomía práctica I"] },
+      // Nivel 6
+      { nombre: "Electromagnetismo", nivel: 6, prerequisitos: ["Mecánica"] },
+      { nombre: "Laboratorio de electromagnetismo", nivel: 6, prerequisitos: ["Laboratorio de mecánica"] },
+      { nombre: "Astrofísica galáctica", nivel: 6, prerequisitos: ["Astronomía estelar"] },
+      { nombre: "English 4", nivel: 6, prerequisitos: ["English 3"] },
 
-      { nombre: "Astrofísica estelar", nivel: 7, prerequisitos: ["Ondas y óptica"] },
-      { nombre: "Electromagnetismo", nivel: 7, prerequisitos: ["Ondas y óptica"] },
+      // Nivel 7
+      { nombre: "Relatividad especial", nivel: 7, prerequisitos: ["Electromagnetismo"] },
+      { nombre: "Laboratorio de óptica", nivel: 7, prerequisitos: ["Laboratorio de electromagnetismo"] },
+      { nombre: "Cosmología", nivel: 7, prerequisitos: ["Astrofísica galáctica"] },
 
-      { nombre: "Gravitación", nivel: 8, prerequisitos: ["Mecánica celeste"] },
-      { nombre: "Relatividad especial", nivel: 8, prerequisitos: ["Gravitación"] },
+      // Nivel 8
+      { nombre: "Mecánica cuántica", nivel: 8, prerequisitos: ["Electromagnetismo", "Mecánica"] },
+      { nombre: "Astrofísica extragaláctica", nivel: 8, prerequisitos: ["Cosmología"] },
 
-      { nombre: "Proyecto de investigación I", nivel: 9, prerequisitos: ["Taller de habilidades científicas"] },
-      { nombre: "Seminario de profundización", nivel: 9 },
+      // Nivel 9
+      { nombre: "Proyecto de grado I", nivel: 9, prerequisitos: ["Mecánica cuántica"] },
+      { nombre: "Instrumentación astronómica", nivel: 9, prerequisitos: ["Laboratorio de óptica"] },
 
-      { nombre: "Proyecto de investigación II", nivel: 10, prerequisitos: ["Proyecto de investigación I"] },
-      { nombre: "Trabajo de grado", nivel: 10, prerequisitos: ["Proyecto de investigación II"] }
+      // Nivel 10
+      { nombre: "Proyecto de grado II", nivel: 10, prerequisitos: ["Proyecto de grado I"] },
+      { nombre: "Seminario de astronomía", nivel: 10, prerequisitos: ["Proyecto de grado I"] },
     ];
 
-    let cursadas = JSON.parse(localStorage.getItem("materiasCursadas") || "[]");
+    const contenedor = document.getElementById("malla");
 
-    function puedeCursarse(materia) {
-      if (!materia.prerequisitos) return true;
-      return materia.prerequisitos.every(pr => cursadas.includes(pr));
+    function cargarEstado() {
+      return JSON.parse(localStorage.getItem("cursadas")) || [];
     }
 
-    const niveles = {};
-    materias.forEach(m => {
-      if (!niveles[m.nivel]) niveles[m.nivel] = [];
-      niveles[m.nivel].push(m);
-    });
+    function guardarEstado(cursadas) {
+      localStorage.setItem("cursadas", JSON.stringify(cursadas));
+    }
 
-    const contenedor = document.getElementById("malla");
-    contenedor.innerHTML = "";
+    function reiniciarMalla() {
+      localStorage.removeItem("cursadas");
+      location.reload();
+    }
 
-    Object.keys(niveles).sort((a, b) => a - b).forEach(nivel => {
-      const divNivel = document.createElement("div");
-      divNivel.className = "nivel";
-      const h2 = document.createElement("h2");
-      h2.textContent = `Nivel ${nivel}`;
-      divNivel.appendChild(h2);
+    function puedeCursarse(materia, cursadas) {
+      if (!materia.prerequisitos) return true;
+      return materia.prerequisitos.every(p => cursadas.includes(p));
+    }
 
-      const ul = document.createElement("ul");
-      niveles[nivel].forEach(materia => {
-        const li = document.createElement("li");
-        li.textContent = materia.nombre;
+    function renderMalla() {
+      contenedor.innerHTML = "";
+      const cursadas = cargarEstado();
 
-        if (cursadas.includes(materia.nombre)) {
-          li.classList.add("cursada");
-        } else if (!puedeCursarse(materia)) {
-          li.classList.add("bloqueada");
-        }
-
-        li.addEventListener("click", () => {
-          if (li.classList.contains("bloqueada")) return;
-
-          if (cursadas.includes(materia.nombre)) {
-            cursadas = cursadas.filter(m => m !== materia.nombre);
-          } else {
-            cursadas.push(materia.nombre);
-          }
-
-          localStorage.setItem("materiasCursadas", JSON.stringify(cursadas));
-          location.reload(); // Recargar para actualizar desbloqueo
-        });
-
-        ul.appendChild(li);
+      const niveles = {};
+      materias.forEach(m => {
+        if (!niveles[m.nivel]) niveles[m.nivel] = [];
+        niveles[m.nivel].push(m);
       });
 
-      divNivel.appendChild(ul);
-      contenedor.appendChild(divNivel);
-    });
+      Object.keys(niveles).sort((a, b) => a - b).forEach(nivel => {
+        const divNivel = document.createElement("div");
+        divNivel.className = "nivel";
+        const h2 = document.createElement("h2");
+        h2.textContent = `Nivel ${nivel}`;
+        divNivel.appendChild(h2);
+
+        const ul = document.createElement("ul");
+        niveles[nivel].forEach(materia => {
+          const li = document.createElement("li");
+          li.textContent = materia.nombre;
+
+          if (cursadas.includes(materia.nombre)) {
+            li.classList.add("cursada");
+          } else if (!puedeCursarse(materia, cursadas)) {
+            li.classList.add("bloqueada");
+          }
+
+          li.addEventListener("click", () => {
+            if (!puedeCursarse(materia, cursadas)) return;
+            const index = cursadas.indexOf(materia.nombre);
+            if (index > -1) {
+              cursadas.splice(index, 1);
+            } else {
+              cursadas.push(materia.nombre);
+            }
+            guardarEstado(cursadas);
+            renderMalla();
+          });
+
+          ul.appendChild(li);
+        });
+        divNivel.appendChild(ul);
+        contenedor.appendChild(divNivel);
+      });
+    }
+
+    renderMalla();
   </script>
 </body>
 </html>
