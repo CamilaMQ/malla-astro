@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular Astronomía</title>
+  <title>Malla Curricular - Astronomía</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -12,42 +12,34 @@
       padding: 2rem;
       color: #333;
     }
-
     h1 {
       text-align: center;
       color: #c2185b;
-      margin-bottom: 2rem;
     }
-
     .container {
       display: flex;
-      flex-direction: row;
       flex-wrap: nowrap;
       overflow-x: auto;
       gap: 1rem;
-      padding-bottom: 2rem;
+      padding-top: 1rem;
     }
-
     .nivel {
       background: #fde4ec;
       border-radius: 10px;
       padding: 1rem;
       width: 250px;
       flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
-
     .nivel h2 {
       text-align: center;
       color: #ad1457;
       margin-bottom: 1rem;
     }
-
     .nivel ul {
       list-style: none;
       padding: 0;
     }
-
     .nivel li {
       background: #fff;
       margin-bottom: 0.5rem;
@@ -57,43 +49,24 @@
       border-left: 5px solid transparent;
       transition: 0.2s;
     }
-
     .nivel li:hover {
       background: #f8bbd0;
     }
-
     .cursada {
       background: #f48fb1 !important;
-      border-left-color: #ad1457;
       color: white;
+      border-left-color: #ad1457;
     }
-
     .bloqueada {
       background: #e0e0e0;
       border: 2px dotted #9e9e9e;
       color: #777;
       cursor: not-allowed;
     }
-
-    .reset-btn {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.5rem 1rem;
-      background: #c2185b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .reset-btn:hover {
-      background: #ad1457;
-    }
   </style>
 </head>
 <body>
   <h1>Malla Curricular - Astronomía</h1>
-  <button class="reset-btn" onclick="reiniciarMalla()">Reiniciar malla</button>
   <div class="container" id="malla"></div>
 
   <script>
@@ -123,76 +96,82 @@
       { nombre: "Física experimental III", nivel: 4, prerequisitos: ["Física experimental II", "Astronomía práctica I"] },
       { nombre: "Ecuaciones diferenciales ordinarias", nivel: 4, prerequisitos: ["Cálculo II"] },
       { nombre: "Astronomía de posición", nivel: 4, prerequisitos: ["Astronomía práctica I"] },
-      { nombre: "English 2", nivel: 4, prerequisitos: ["English 1"] }
+      { nombre: "English 2", nivel: 4, prerequisitos: ["English 1"] },
+
+      { nombre: "Mecánica celeste", nivel: 5, prerequisitos: ["Astronomía de posición"] },
+      { nombre: "Taller de habilidades científicas", nivel: 5 },
+      { nombre: "Cinemática galáctica", nivel: 5, prerequisitos: ["Física básica III"] },
+
+      { nombre: "Ondas y óptica", nivel: 6, prerequisitos: ["Física básica III"] },
+      { nombre: "Procesamiento de datos astronómicos", nivel: 6, prerequisitos: ["Métodos computacionales"] },
+      { nombre: "Astronomía práctica II", nivel: 6, prerequisitos: ["Astronomía práctica I"] },
+
+      { nombre: "Astrofísica estelar", nivel: 7, prerequisitos: ["Ondas y óptica"] },
+      { nombre: "Electromagnetismo", nivel: 7, prerequisitos: ["Ondas y óptica"] },
+
+      { nombre: "Gravitación", nivel: 8, prerequisitos: ["Mecánica celeste"] },
+      { nombre: "Relatividad especial", nivel: 8, prerequisitos: ["Gravitación"] },
+
+      { nombre: "Proyecto de investigación I", nivel: 9, prerequisitos: ["Taller de habilidades científicas"] },
+      { nombre: "Seminario de profundización", nivel: 9 },
+
+      { nombre: "Proyecto de investigación II", nivel: 10, prerequisitos: ["Proyecto de investigación I"] },
+      { nombre: "Trabajo de grado", nivel: 10, prerequisitos: ["Proyecto de investigación II"] }
     ];
 
-    function getCursadas() {
-      return JSON.parse(localStorage.getItem('materiasCursadas') || '[]');
-    }
+    let cursadas = JSON.parse(localStorage.getItem("materiasCursadas") || "[]");
 
-    function setCursadas(cursadas) {
-      localStorage.setItem('materiasCursadas', JSON.stringify(cursadas));
-    }
-
-    function puedeCursarse(materia, cursadas) {
+    function puedeCursarse(materia) {
       if (!materia.prerequisitos) return true;
-      return materia.prerequisitos.every(p => cursadas.includes(p));
+      return materia.prerequisitos.every(pr => cursadas.includes(pr));
     }
 
-    function reiniciarMalla() {
-      localStorage.removeItem('materiasCursadas');
-      location.reload();
-    }
+    const niveles = {};
+    materias.forEach(m => {
+      if (!niveles[m.nivel]) niveles[m.nivel] = [];
+      niveles[m.nivel].push(m);
+    });
 
-    function renderMalla() {
-      const contenedor = document.getElementById('malla');
-      contenedor.innerHTML = '';
-      const cursadas = getCursadas();
-      const niveles = {};
+    const contenedor = document.getElementById("malla");
+    contenedor.innerHTML = "";
 
-      materias.forEach(m => {
-        if (!niveles[m.nivel]) niveles[m.nivel] = [];
-        niveles[m.nivel].push(m);
-      });
+    Object.keys(niveles).sort((a, b) => a - b).forEach(nivel => {
+      const divNivel = document.createElement("div");
+      divNivel.className = "nivel";
+      const h2 = document.createElement("h2");
+      h2.textContent = `Nivel ${nivel}`;
+      divNivel.appendChild(h2);
 
-      Object.keys(niveles).sort((a, b) => a - b).forEach(nivel => {
-        const divNivel = document.createElement('div');
-        divNivel.className = 'nivel';
-        const h2 = document.createElement('h2');
-        h2.textContent = `Nivel ${nivel}`;
-        divNivel.appendChild(h2);
+      const ul = document.createElement("ul");
+      niveles[nivel].forEach(materia => {
+        const li = document.createElement("li");
+        li.textContent = materia.nombre;
 
-        const ul = document.createElement('ul');
-        niveles[nivel].forEach(materia => {
-          const li = document.createElement('li');
-          li.textContent = materia.nombre;
+        if (cursadas.includes(materia.nombre)) {
+          li.classList.add("cursada");
+        } else if (!puedeCursarse(materia)) {
+          li.classList.add("bloqueada");
+        }
+
+        li.addEventListener("click", () => {
+          if (li.classList.contains("bloqueada")) return;
 
           if (cursadas.includes(materia.nombre)) {
-            li.classList.add('cursada');
-          } else if (!puedeCursarse(materia, cursadas)) {
-            li.classList.add('bloqueada');
+            cursadas = cursadas.filter(m => m !== materia.nombre);
+          } else {
+            cursadas.push(materia.nombre);
           }
 
-          if (!li.classList.contains('bloqueada')) {
-            li.addEventListener('click', () => {
-              const actual = getCursadas();
-              if (actual.includes(materia.nombre)) {
-                setCursadas(actual.filter(m => m !== materia.nombre));
-              } else {
-                setCursadas([...actual, materia.nombre]);
-              }
-              renderMalla();
-            });
-          }
-
-          ul.appendChild(li);
+          localStorage.setItem("materiasCursadas", JSON.stringify(cursadas));
+          location.reload(); // Recargar para actualizar desbloqueo
         });
-        divNivel.appendChild(ul);
-        contenedor.appendChild(divNivel);
-      });
-    }
 
-    renderMalla();
+        ul.appendChild(li);
+      });
+
+      divNivel.appendChild(ul);
+      contenedor.appendChild(divNivel);
+    });
   </script>
 </body>
 </html>
